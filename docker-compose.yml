@@ -1,0 +1,47 @@
+services:
+  backend:
+    build: ./backend
+    container_name: api_backend 
+    ports:
+      - '3000:3000'
+    env_file:
+      - ./backend/.env
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: admin
+      DB_PASSWORD: 1375
+      DB_NAME: DB_engel_team_tkd
+      JWT_SECRET: U8z3!sKp@91aX#vWm$FqRtG4eLpNz2Hb
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    command: npm start
+    depends_on:
+      - db
+    networks:
+      - app_network
+
+  db:
+    image: postgres:15
+    container_name: engel-db
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: 1375
+      POSTGRES_DB: DB_engel_team_tkd
+    ports:
+      - '5432:5432'
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    
+    networks:
+      - app_network
+
+networks:
+  app_network:
+    driver: bridge
+
+volumes:
+  db_data:

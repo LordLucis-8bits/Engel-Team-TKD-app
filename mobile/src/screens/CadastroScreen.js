@@ -146,7 +146,7 @@ export default function CadastroScreen() {
           source={
             formData.foto
               ? { uri: formData.foto }
-              : require("../../assets/default-photo-user.png")
+              : require("../assets/default-photo-user.png")
           }
           style={styles.avatar}
         />

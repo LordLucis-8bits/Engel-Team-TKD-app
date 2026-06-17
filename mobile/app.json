@@ -5,26 +5,19 @@
     "scheme": "engelteamtkd",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",   
-    "userInterfaceStyle": "dark",
-    "newArchEnabled": true,
-    "splash": {
-      "image": "./assets/splash-icon.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
+    "icon": "./src/assets/logo.png",
+    "userInterfaceStyle": "light",
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      },
-      "edgeToEdgeEnabled": true
+        "backgroundColor": "#E6F4FE",
+        "backgroundImage": "./src/assets/android-icon-background.png"
+      }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./src/assets/logo.png"
     },
     "plugins": [
       "expo-router"

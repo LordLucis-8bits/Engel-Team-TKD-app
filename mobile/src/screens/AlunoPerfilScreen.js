@@ -225,7 +225,7 @@ export default function AlunoPerfilScreen() {
                                 ? { uri: selectedImageUri }
                                 : aluno.fotoUrl
                                     ? { uri: aluno.fotoUrl }
-                                    : require('../../assets/default-photo-user.png')
+                                    : require('../assets/default-photo-user.png')
                         }
                         style={styles.foto3x4}
                     />

@@ -132,7 +132,7 @@ export default function AdminAlunosScreen() {
                 source={
                   alunoSelecionado?.fotoUrl
                     ? { uri: alunoSelecionado.fotoUrl }
-                    : require("../../assets/default-photo-user.png")
+                    : require("../assets/default-photo-user.png")
                 }
                 style={styles.foto}
               />
