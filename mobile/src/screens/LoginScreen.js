@@ -44,7 +44,7 @@ export default function LoginScreen() {
             setSenha('');
 
             if (tipo === 'admin') {
-                router.replace('/admin/dashboard');
+                router.replace('/admin/home');
             } else if (tipo === 'aluno') {
                 router.replace('/aluno/perfil');
             }
@@ -58,7 +58,7 @@ export default function LoginScreen() {
 
     return (
         <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === "ios" ? "padding" : "height"}>
-            <Image source={require('../../assets/logo.png')} style={styles.logo} />
+            <Image source={require('../assets/logo.png')} style={styles.logo} />
 
             <TextInput
                 style={styles.input}

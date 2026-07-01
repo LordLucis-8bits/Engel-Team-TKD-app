@@ -41,7 +41,7 @@ export default function AdminHomeScreen() {
         ))}
       </View>
 
-      <TouchableOpacity style={styles.botaoSair} onPress={handleSair}>
+      <TouchableOpacity style={styles.botaoSair} onPress={handlerSair}>
         <Text style={styles.botaoSairTexto}>Sair</Text>
       </TouchableOpacity>
 

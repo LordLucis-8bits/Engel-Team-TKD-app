@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS alunos (
     altura INTEGER,
     foto TEXT,
     cidade VARCHAR(255),
-    estado VARCHAR(2),
+    estado CHAR(2),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

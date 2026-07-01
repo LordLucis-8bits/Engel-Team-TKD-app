@@ -20,15 +20,14 @@ export default function AlunoPerfilScreen() {
         const buscarDados = async () => {
             try {
                 const token = await AsyncStorage.getItem('token');
-                const id = await AsyncStorage.getItem('id');
 
-                if (!token || !id) {
+                if (!token) {
                     Alert.alert("Erro", "Usuário não autenticado.");
                     router.replace('/');
                     return;
                 }
 
-                const response = await axios.get(`${API_URL}/alunos/perfil/${id}`, {
+                const response = await axios.get(`${API_URL}/alunos/perfil`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
 
@@ -84,8 +83,8 @@ export default function AlunoPerfilScreen() {
 
                 formData.append('foto', {
                     uri: selectedImageUri,
-                    type: 'image/jpeg',
-                    name: 'foto.jpg',
+                    type: selectedImageUri.endsWith('.png') ? 'image/png' : 'image/jpeg',
+                    name: 'fotoAluno',
                 });
 
                 data = formData;
@@ -140,7 +139,7 @@ export default function AlunoPerfilScreen() {
     const Campo = ({ campo, label }) => {
 
         const valor = dadosEditados[campo];
-        const isSelect = ['faixa', 'tipoFaixa', 'categoria'].includes(campo);
+        const isSelect = ['faixa', 'tipoFaixa', 'categoria', 'estado'].includes(campo);
 
         return (
             <View style={styles.campoLinha}>
@@ -188,6 +187,38 @@ export default function AlunoPerfilScreen() {
                                     <Picker.Item label="Sub-21" value="Sub-21" />
                                     <Picker.Item label="Adulto" value="Adulto" />
                                     <Picker.Item label="Master" value="Master" />
+                                </>
+                            )}
+
+                            {campo === 'estado' && (
+                                <>
+                                    <Picker.Item label="AC" value="Acre" />
+                                    <Picker.Item label="AL" value="Alagoas" />
+                                    <Picker.Item label="AP" value="Amapá" />
+                                    <Picker.Item label="AM" value="Amazonas" />
+                                    <Picker.Item label="BA" value="Bahia" />
+                                    <Picker.Item label="CE" value="Ceará" />
+                                    <Picker.Item label="DF" value="Distrito Federal" />
+                                    <Picker.Item label="ES" value="Espírito Santo" />
+                                    <Picker.Item label="GO" value="Goiás" />
+                                    <Picker.Item label="MA" value="Maranhão" />
+                                    <Picker.Item label="MT" value="Mato Grosso" />
+                                    <Picker.Item label="MS" value="Mato Grosso do Sul" />
+                                    <Picker.Item label="MG" value="Minas Gerais" />
+                                    <Picker.Item label="PA" value="Pará" />
+                                    <Picker.Item label="DF" value="Paraíba" />
+                                    <Picker.Item label="PR" value="Paraná" />
+                                    <Picker.Item label="PE" value="Pernambuco" />
+                                    <Picker.Item label="PI" value="Piauí" />
+                                    <Picker.Item label="RJ" value="Rio de Janeiro" />
+                                    <Picker.Item label="RN" value="Rio Grande do Norte" />
+                                    <Picker.Item label="RS" value="Rio Grande do Sul" />
+                                    <Picker.Item label="RO" value="Rondônia" />
+                                    <Picker.Item label="RR" value="Roraima" />
+                                    <Picker.Item label="SC" value="Santa Catarina" />
+                                    <Picker.Item label="SP" value="São Paulo" />
+                                    <Picker.Item label="SE" value="Sergipe" />
+                                    <Picker.Item label="TO" value="Tocantins" />
                                 </>
                             )}
 
@@ -240,9 +271,10 @@ export default function AlunoPerfilScreen() {
                 <Text style={styles.cardTitulo}>Dados Pessoais</Text>
 
                 <Campo campo="email" label="Email" />
-                <Campo campo="telefone" label="Telefone" />
                 <Campo campo="dataNascimento" label="Data de Nascimento" />
                 <Campo campo="sexo" label="Sexo" />
+                <Campo campo="cidade" label="Cidade" />
+                <Campo campo="estado" label="Estado" />
 
             </View>
 

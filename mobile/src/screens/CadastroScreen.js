@@ -23,6 +23,8 @@ export default function CadastroScreen() {
     categoria: "",
     altura: "",
     foto: null,
+    cidade: "",
+    estado: "",
   });
 
   const handleChange = (field, value) => {
@@ -48,7 +50,7 @@ export default function CadastroScreen() {
       const asset = result.assets[0];
 
       if(asset.mimeType && asset.mimeType !== "image/jpeg" && asset.mimeType !== "image/png") {
-        Alert.alert("Formato inválido", "Apenas PNG ou JPEG.");
+        Alert.alert("Formato inválido", "Apenas JPEG ou PNG.");
         return;
       }
       handleChange("foto", asset.uri);
@@ -96,10 +98,11 @@ export default function CadastroScreen() {
     });
 
     if (formData.foto) {
+      const isPng = formData.foto.endsWith('.png');
       data.append("foto", {
         uri: formData.foto,
-        name: `foto_${Date.now()}.jpg`,
-        type: "image/jpeg",
+        name: `foto_${Date.now()}.${isPng ? 'png' : 'jpg'}`,
+        type: isPng ? "image/png" : "image/jpeg",
       });
     }
 
@@ -131,9 +134,9 @@ export default function CadastroScreen() {
       Alert.alert("Erro", errorMsg);
       
     } finally {
-    setLoading(false);
-  }
-};
+      setLoading(false);
+    }
+  };
 
   return (
     <KeyboardAvoidingView
@@ -159,52 +162,92 @@ export default function CadastroScreen() {
         <TextInput style={styles.input} placeholder="Email" keyboardType="email-address" autoCapitalize="none" value={formData.email} onChangeText={(t) => handleChange("email", t)} />
         <TextInput style={styles.input} placeholder="Senha" secureTextEntry value={formData.senha} onChangeText={(t) => handleChange("senha", t)} />
         <TextInput style={styles.input} placeholder="Data de Nascimento (DD-MM-YYYY)" value={formData.dataNascimento} onChangeText={onDateChange} />
+        <TextInput style={styles.input} placeholder="Cidade" value={formData.cidade} onChangeText={(t) => handleChange("cidade", t)} />
+      
+        <Picker 
+        selectedValue={formData.estado} 
+        style={styles.input} 
+        onValueChange={(v) => handleChange("estado", v)}
+        >
+          <Picker.Item label="Selecione o Estado" value="" />
+          <Picker.Item label="AC" value="AC" />
+          <Picker.Item label="AL" value="AL" />
+          <Picker.Item label="AP" value="AP" />
+          <Picker.Item label="AM" value="AM" />
+          <Picker.Item label="BA" value="BA" />
+          <Picker.Item label="CE" value="CE" />
+          <Picker.Item label="DF" value="DF" />
+          <Picker.Item label="ES" value="ES" />
+          <Picker.Item label="GO" value="GO" />
+          <Picker.Item label="MA" value="MA" />
+          <Picker.Item label="MT" value="MT" />
+          <Picker.Item label="MS" value="MS" />
+          <Picker.Item label="MG" value="MG" />
+          <Picker.Item label="PA" value="PA" />
+          <Picker.Item label="DF" value="DF" />
+          <Picker.Item label="PR" value="PR" />
+          <Picker.Item label="PE" value="PE" />
+          <Picker.Item label="PI" value="PI" />
+          <Picker.Item label="RJ" value="RJ" />
+          <Picker.Item label="RN" value="RN" />
+          <Picker.Item label="RS" value="RS" />
+          <Picker.Item label="RO" value="RO" />
+          <Picker.Item label="RR" value="RR" />
+          <Picker.Item label="SC" value="SC" />
+          <Picker.Item label="SP" value="SP" />
+          <Picker.Item label="SE" value="SE" />
+          <Picker.Item label="TO" value="TO" />
+        </Picker>
 
-        <Picker selectedValue={formData.sexo} style={styles.input} onValueChange={(v) => handleChange("sexo", v)}>
+        <Picker 
+        selectedValue={formData.sexo} 
+        style={styles.input} 
+        onValueChange={(v) => handleChange("sexo", v)}
+        >
           <Picker.Item label="Selecione o Sexo" value="" />
           <Picker.Item label="Masculino" value="Masculino" />
           <Picker.Item label="Feminino" value="Feminino" />
         </Picker>
         
-        <Picker
-        selectedValue={formData.faixa}
-        style={styles.input}
+        <Picker 
+        selectedValue={formData.faixa} 
+        style={styles.input} 
         onValueChange={(itemValue) => handleChange('faixa', itemValue)}
         >
-        <Picker.Item label="Selecione a Cor da Faixa" value="" />
-        <Picker.Item label="Branca" value="Branca" />
-        <Picker.Item label="Amarela" value="Amarela" />
-        <Picker.Item label="Verde" value="Verde" />
-        <Picker.Item label="Verde escura" value="Verde escura" />
-        <Picker.Item label="Azul" value="Azul" />
-        <Picker.Item label="Azul escura" value="Azul escura" />
-        <Picker.Item label="Vermelha" value="Vermelha" />
-        <Picker.Item label="Vermelha escura" value="Vermelha escura" />
-        <Picker.Item label="Preta" value="Preta" />
+          <Picker.Item label="Selecione a Cor da Faixa" value="" />
+          <Picker.Item label="Branca" value="Branca" />
+          <Picker.Item label="Amarela" value="Amarela" />
+          <Picker.Item label="Verde" value="Verde" />
+          <Picker.Item label="Verde escura" value="Verde escura" />
+          <Picker.Item label="Azul" value="Azul" />
+          <Picker.Item label="Azul escura" value="Azul escura" />
+          <Picker.Item label="Vermelha" value="Vermelha" />
+          <Picker.Item label="Vermelha escura" value="Vermelha escura" />
+          <Picker.Item label="Preta" value="Preta" />
         </Picker>
 
-        <Picker
-        selectedValue={formData.tipoFaixa}
-        style={styles.input}
+        <Picker 
+        selectedValue={formData.tipoFaixa} 
+        style={styles.input} 
         onValueChange={(itemValue) => handleChange('tipoFaixa', itemValue)}
         >
-        <Picker.Item label="Selecione o Tipo de Faixa" value="" />
-        <Picker.Item label="Preta" value="Preta" />
-        <Picker.Item label="Colorida" value="Colorida" />
+          <Picker.Item label="Selecione o Tipo de Faixa" value="" />
+          <Picker.Item label="Preta" value="Preta" />
+          <Picker.Item label="Colorida" value="Colorida" />
         </Picker>
 
-        <Picker
-        selectedValue={formData.categoria}
-        style={styles.input}
+        <Picker 
+        selectedValue={formData.categoria} 
+        style={styles.input} 
         onValueChange={(itemValue) => handleChange('categoria', itemValue)}
         >
-        <Picker.Item label="Selecione a Categoria" value="" />
-        <Picker.Item label="Infantil" value="Infantil" />
-        <Picker.Item label="Cadete" value="Cadete" />
-        <Picker.Item label="Juvenil" value="Juvenil" />
-        <Picker.Item label="Sub-21" value="Sub-21" />
-        <Picker.Item label="Adulto" value="Adulto" />
-        <Picker.Item label="Master" value="Master" />
+          <Picker.Item label="Selecione a Categoria" value="" />
+          <Picker.Item label="Infantil" value="Infantil" />
+          <Picker.Item label="Cadete" value="Cadete" />
+          <Picker.Item label="Juvenil" value="Juvenil" />
+          <Picker.Item label="Sub-21" value="Sub-21" />
+          <Picker.Item label="Adulto" value="Adulto" />
+          <Picker.Item label="Master" value="Master" />
         </Picker>
 
         <View style={[styles.alturaContainer, erroAltura && styles.inputErro]}>

@@ -5,8 +5,8 @@ const verificarToken = require('../middleware/auth');
 const verificarAdmin = require('../middleware/verificarAdmin');
 
 router.post('/', verificarToken, verificarAdmin, aulaController.store);
-router.get('/:id', verificarToken, verificarAdmin, aulaController.show);
 router.get('/', verificarToken, verificarAdmin, aulaController.index);
+router.get('/:id', verificarToken, verificarAdmin, aulaController.show);
 router.delete('/:id', verificarToken, verificarAdmin, aulaController.destroy);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////

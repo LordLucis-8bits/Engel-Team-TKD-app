@@ -15,7 +15,7 @@ export default function AdminEstatisticasScreen() {
     const carregarAlunos = async () => {
         try {
             const token = await AsyncStorage.getItem("token");
-            const res = await axios.get(`${API_URL}/admin/alunos`, {
+            const res = await axios.get(`${API_URL}/admin`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setAlunos(res.data);
