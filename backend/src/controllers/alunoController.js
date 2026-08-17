@@ -1,10 +1,8 @@
 const alunoModel = require('../models/alunoModel');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { formatarAluno } = require('../utils/formatters');
+const { formatarAluno, parseDataNascimento } = require('../utils/formatters');
 const { validateEmail } = require('../utils/validators');
-const { parseDataNascimento } = require('../utils/formatters');
-
 require('dotenv').config();
 
 const alunoController = {
@@ -124,10 +122,10 @@ const alunoController = {
   
   async show(req, res) {
     try {
-      const id = req.user.id;
+      const id = req.params.id;
       
       if (!id) {
-        return res.status(400).json({ error: 'ID inválido no token' });
+        return res.status(400).json({ error: 'ID inválido' });
       }
       
       const aluno = await alunoModel.buscarAlunoPorId(id);
@@ -174,10 +172,11 @@ const alunoController = {
         return res.status(403).json({ error: 'Sem permissão para editar o aluno' })
       }
 
+      //Remover campos que não devem ser atualizados diretamente
       delete dadosAtualizados.id;
       delete dadosAtualizados.tipo;
 
-      if (dadosAtualizados.email && dadosAtualizados.email !== alunoExistente.email) {
+      if (dadosAtualizados.email !== alunoExistente.email) {
         if (!validateEmail(dadosAtualizados.email)) {
           return res.status(400).json({ error: 'Email inválido' });
         }
@@ -218,7 +217,6 @@ const alunoController = {
         ...dadosAtualizados,
        senha: dadosAtualizados.senha || alunoExistente.senha,
       };
-
 
       //Atualiza no banco
       const alunoAtualizado = await alunoModel.atualizarAluno(id, dadosMergeados);

@@ -9,7 +9,7 @@ const presencasModel = {
             RETURNING *;
         `;
 
-        const result = await db.query(query, [aulaId, alunoId, presente]);
+        const result = await db.query(query, [aula_Id, aluno_Id, presente]);
         return result.rows[0];
     },
 

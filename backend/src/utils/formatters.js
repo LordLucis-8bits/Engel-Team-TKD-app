@@ -22,6 +22,6 @@ function parseDataNascimento(dataStr) {
         throw new Error("Data inválida");
     }
     return data;
-}
+};
 
 module.exports = { formatarAluno, parseDataNascimento };

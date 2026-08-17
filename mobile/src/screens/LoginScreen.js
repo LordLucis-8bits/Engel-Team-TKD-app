@@ -4,6 +4,7 @@ import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { API_URL } from "@env";
 import { useRouter } from "expo-router";
+import { validateEmail } from "../utils/validations";
 
 export default function LoginScreen() {
     const [email, setEmail] = useState('');
@@ -11,12 +12,10 @@ export default function LoginScreen() {
     const [loading, setLoading] = useState(false);
     const router = useRouter();
 
-    const validarEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.toLowerCase());
-
     const handleLogin = async () => {
         const emailFormatado = email.trim().toLowerCase();
 
-        if (!validarEmail(emailFormatado)) {
+        if (!validateEmail(emailFormatado)) {
             Alert.alert("Erro", "Email inválido");
             return;
         }

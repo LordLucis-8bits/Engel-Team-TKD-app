@@ -2,13 +2,9 @@ const express = require('express');
 const router = express.Router();
 const alunoController = require('../controllers/alunoController');
 const adminController = require('../controllers/adminController');
+const { validateEmail } = require('../utils/validators');
 
 require('dotenv').config();
-
-const validateEmail = (email) => {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
-};
 
 router.post('/login', async (req, res) => {
   try {

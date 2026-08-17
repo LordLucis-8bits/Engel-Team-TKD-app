@@ -13,13 +13,13 @@ function verificarToken(req, res, next) {
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    req.usuario = decoded;
+    req.user = decoded;
 
     next();
 
   } catch (error) {
     return res.status(403).json({ error: 'Token inválido ou expirado' });
   }
-}
+};
 
 module.exports = verificarToken;
