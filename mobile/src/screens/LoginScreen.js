@@ -4,7 +4,7 @@ import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { API_URL } from "@env";
 import { useRouter } from "expo-router";
-import { validateEmail } from "../utils/validations";
+import { validateEmail } from "../utils/validationUtils";
 
 export default function LoginScreen() {
     const [email, setEmail] = useState('');

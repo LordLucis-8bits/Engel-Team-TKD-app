@@ -4,8 +4,6 @@ const AlunoModel = {
     async cadastrarAlunos(dados) {
         const {
             nome,
-            email,
-            senha,
             dataNascimento,
             sexo,
             faixa,
@@ -15,18 +13,18 @@ const AlunoModel = {
             foto,
             cidade,
             estado,
+            bolsa_atleta,
+            responsavel_id,
         } = dados;
 
         const query = `
-            INSERT INTO alunos (nome, email, senha, dataNascimento, sexo, faixa, tipoFaixa, categoria, altura, foto, cidade, estado)
+            INSERT INTO alunos (nome, dataNascimento, sexo, faixa, tipoFaixa, categoria, altura, foto, cidade, estado, bolsa_atleta, responsavel_id)
             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
             RETURNING *;
         `;
 
         const values = [
             nome,
-            email,
-            senha,
             dataNascimento,
             sexo,
             faixa,
@@ -36,6 +34,8 @@ const AlunoModel = {
             foto,
             cidade,
             estado,
+            bolsa_atleta,
+            responsavel_id,
         ];
 
         const result = await db.query(query, values);
@@ -71,8 +71,6 @@ const AlunoModel = {
     async atualizarAluno(id, dadosAtualizados) {
         const {
             nome,
-            email,
-            senha,
             dataNascimento,
             sexo,
             faixa,
@@ -82,19 +80,17 @@ const AlunoModel = {
             foto,
             cidade,
             estado,
+            bolsa_atleta,
         } = dadosAtualizados;
 
         const query = `
-            UPDATE alunos SET nome = $1, email = $2, senha = $3, dataNascimento = $4,
-            sexo = $5, faixa = $6, tipoFaixa = $7, categoria = $8,
-            altura = $9, foto = $10, cidade = $11, estado = $12 WHERE id = $13    
+            UPDATE alunos SET nome = $1, dataNascimento = $2, sexo = $3, faixa = $4, tipoFaixa = $5, categoria = $6,
+            altura = $7, foto = $8, cidade = $9, estado = $10, bolsa_atleta = $12 WHERE id = $13    
             RETURNING *;
         `;
 
         const values = [
             nome,
-            email,
-            senha,
             dataNascimento,
             sexo,
             faixa,
@@ -104,6 +100,7 @@ const AlunoModel = {
             foto,
             cidade,
             estado,
+            bolsa_atleta,
             id,
         ];
 
