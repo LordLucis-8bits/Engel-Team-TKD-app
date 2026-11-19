@@ -20,14 +20,12 @@ const ResponsavelModel = {
     },
 
     async buscarPorEmail(email) {
-        // Importante: No login, precisamos retornar a senha para comparar!
         const query = 'SELECT * FROM users WHERE email = $1;';
         const result = await db.query(query, [email]);
         return result.rows[0] || null;
     },
 
     async buscarPorId(id) {
-        // Aqui não retornamos a senha por segurança
         const query = 'SELECT id, nome, email, role FROM users WHERE id = $1;';
         const result = await db.query(query, [id]);
         return result.rows[0] || null;
