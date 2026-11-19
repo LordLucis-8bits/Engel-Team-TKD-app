@@ -56,26 +56,10 @@ export const validateHeight = (altura) => {
 }; 
 ////////////////////////////////////////////////////////////////////////////////////////
 
-//Campos de email e senha
-export const validateEmail = (email) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-};
-
-export const validatePassword = (senha) => {
-    if (senha.length < 6) {
-        return "Senha deve ter no mínimo 6 caracteres.";
-    }
-    return "";
-};
-//////////////////////////////////////////////////////////////////////////////////////
-
 //Validação de campos obrigatórios
 export const validateRequiredFields = (formData) => {
   const requiredFields = {
     nome: "Nome",
-    email: "Email",
-    senha: "Senha",
     sexo: "Sexo",
     faixa: "Cor da Faixa",
     tipoFaixa: "Tipo de Faixa",
