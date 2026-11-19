@@ -1,4 +1,4 @@
-const db = require('./db');
+const db = require('../config/db');
 
 const ResponsavelModel = {
     async cadastrar(dados) {
@@ -29,6 +29,31 @@ const ResponsavelModel = {
         const query = 'SELECT id, nome, email, role FROM users WHERE id = $1;';
         const result = await db.query(query, [id]);
         return result.rows[0] || null;
+    },
+
+    async atualizar(id, dados) {
+        const { nome, email, senha } = dados;
+        const query = `
+            UPDATE users SET nome = $1, email = $2, senha = $3 WHERE id = $4
+            RETURNING id, nome, email, role;
+            `;
+        const values = [nome, email, senha, id];
+        const result = await db.query(query, values);
+        
+        if (result.rows.length === 0) {
+            throw new Error('Erro ao atualizar usuário');
+        }
+        return result.rows[0];
+    },
+
+    async deletar(id) {
+        const query = `DELETE FROM users WHERE id = $1 RETURNING id, nome, email, role;`;
+        const result = await db.query(query, [id]);
+        
+        if (result.rows.length === 0) {
+            throw new Error('Erro ao deletar usuário');
+        }
+        return result.rows[0];
     }
 };
 

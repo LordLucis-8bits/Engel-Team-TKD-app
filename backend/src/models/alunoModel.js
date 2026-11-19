@@ -1,4 +1,4 @@
-const db = require('./db');
+const db = require('../config/db');
 
 const AlunoModel = {
     async cadastrarAlunos(dados) {
@@ -54,7 +54,7 @@ const AlunoModel = {
     },
 
     async buscarAlunoPorId(id) {
-        const query = 'SELECT * FROM alunos WHERE id = $1;';
+        const query = 'SELECT * FROM alunos WHERE id = $1 AND responsavel_id = $2;';
         const values = [id];
         const result = await db.query(query, values);
         if (result.rows.length === 0) {
