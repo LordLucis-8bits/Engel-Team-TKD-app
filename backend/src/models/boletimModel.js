@@ -11,6 +11,12 @@ const BoletimModel = {
     return result.rows[0];
   },
 
+  async buscarPorId(id) {
+    const query = 'SELECT * FROM boletins WHERE id = $1;';
+    const result = await db.query(query, [id]);
+    return result.rows[0] || null;
+  },
+
   async listarPorAluno(aluno_id) {
     const query = 'SELECT * FROM boletins WHERE aluno_id = $1 ORDER BY created_at DESC;';
     const result = await db.query(query, [aluno_id]);

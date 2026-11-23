@@ -28,7 +28,7 @@ const responsavelController = {
     }
   },
 
-  async atualizar(req, res) {
+  async update(req, res) {
     try {
       const { id } = req.params;
       const dadosAtualizados = req.body;

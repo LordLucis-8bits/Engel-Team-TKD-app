@@ -52,15 +52,19 @@ const AlunoModel = {
         const result = await db.query('SELECT * FROM alunos LIMIT $1 OFFSET $2;', [limit, offset])
         return result.rows;
     },
-
-    async buscarAlunoPorId(id) {
-        const query = 'SELECT * FROM alunos WHERE id = $1 AND responsavel_id = $2;';
+    
+    async buscarAlunoPorId(id, responsavel_id = null) {
+        let query = 'SELECT * FROM alunos WHERE id = $1';
         const values = [id];
-        const result = await db.query(query, values);
-        if (result.rows.length === 0) {
-            throw new Error('Aluno não encontrado');
+        
+        if (responsavel_id) {
+            query += ' AND responsavel_id = $2';
+            values.push(responsavel_id);
         }
-        return result.rows[0];
+        
+        const result = await db.query(query, values);
+        
+        return result.rows[0] || null; 
     },
     
     async atualizarAluno(id, dadosAtualizados) {

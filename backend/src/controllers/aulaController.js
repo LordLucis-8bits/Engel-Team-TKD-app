@@ -1,5 +1,4 @@
 const aulaModel = require('../models/aulaModel');
-const alunoModel = require('../models/alunoModel');
 const presencasModel = require('../models/presencasModel');
 const AulaModel = require('../models/aulaModel');
 
