@@ -1,10 +1,17 @@
 function formatarAluno(aluno) {
     if (!aluno) return null;
-    const { senha: _, ...alunoSemSenha } = aluno;
-    alunoSemSenha.fotoUrl = aluno.foto 
-    ? `${process.env.API_URL}/uploads/${aluno.foto}` 
+    aluno.fotoUrl = aluno.foto 
+    ? `${process.env.API_URL}/uploads/alunos/${aluno.foto}` 
     : `${process.env.API_URL}/uploads/default-photo-user.png`;
-    return alunoSemSenha;
+    return aluno;
+}
+
+function formatarBoletim(boletim) {
+    if (!boletim) return null;
+    boletim.url_boletim = boletim.foto_boletim 
+    ? `${process.env.API_URL}/uploads/boletins/${boletim.foto}` 
+    : null;
+    return aluno;
 }
 
 function parseDataNascimento(dataStr) {
@@ -24,4 +31,4 @@ function parseDataNascimento(dataStr) {
     return data;
 };
 
-module.exports = { formatarAluno, parseDataNascimento };
+module.exports = { formatarAluno, parseDataNascimento, formatarBoletim };
