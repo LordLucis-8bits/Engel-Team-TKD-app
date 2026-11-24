@@ -11,7 +11,7 @@ function formatarBoletim(boletim) {
     boletim.url_boletim = boletim.foto_boletim 
     ? `${process.env.API_URL}/uploads/boletins/${boletim.foto}` 
     : null;
-    return aluno;
+    return boletim;
 }
 
 function parseDataNascimento(dataStr) {

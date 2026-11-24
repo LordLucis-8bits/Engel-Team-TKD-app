@@ -12,9 +12,8 @@ const CompeticaoModel = {
   },
 
   async listarRanking() {
-    //Agrupa os pontos por aluno e ordena do maior para o menor
     const query = `
-      SELECT a.nome, SUM(c.pontos) as total_pontos 
+      SELECT a.id, a.nome, SUM(c.pontos) as total_pontos 
       FROM competicoes c
       JOIN alunos a ON a.id = c.aluno_id
       GROUP BY a.nome
