@@ -1,6 +1,5 @@
 const aulaModel = require('../models/aulaModel');
 const presencasModel = require('../models/presencasModel');
-const AulaModel = require('../models/aulaModel');
 
 const aulaController = {
     async store(req, res) {
@@ -30,15 +29,20 @@ const aulaController = {
         
         } catch (err) {
             console.log('Erro ao listar aulas', err);
-            res.status(500).json({ error: 'erro ao listar alunos' });
+            res.status(500).json({ error: 'Erro ao listar aulas' }); 
         }
     },
 
     async show(req, res) {
         try {
-            const { id } = req.params.id;
+            const { id } = req.params; 
 
-            const aula = await AulaModel.buscarPorId(id);
+            const aula = await aulaModel.buscarPorId(id);
+            
+            if (!aula) {
+                return res.status(404).json({ error: 'Aula não encontrada' });
+            }
+            
             res.json({ aula });
 
         } catch (err) {
@@ -49,23 +53,27 @@ const aulaController = {
 
     async destroy(req, res) {
         try {
-            const { id } = req.params.id;
+            const { id } = req.params; // Corrigido
 
-            const aula = await AulaModel.excluirAula(id);
-            res.json({ aula });
+            const aula = await aulaModel.excluirAula(id);
+            res.json({ message: 'Aula excluída com sucesso', aula });
         
         } catch (err) {
             console.error('Error ao excluir aula', err);
-            res.status(500).json({ erro: 'Erro ao apagar o aluno' });
+            res.status(500).json({ error: 'Erro ao apagar a aula' }); 
         }
     },
 
     async listarAlunosDaAula(req, res) {
         try {
-            const { id } = req.params.id;
-            const aula = await AulaModel.buscarPorId(id);
+            const { id } = req.params; 
+            const aula = await aulaModel.buscarPorId(id);
 
-            const alunos = await aulaModel.BuscarAlunosPorAulas(id, aula.tipo_faixa);
+            if (!aula) {
+                return res.status(404).json({ error: 'Aula não encontrada' });
+            }
+
+            const alunos = await aulaModel.BuscarAlunosPorAulas(aula.tipo_faixa);
             res.json({ alunos });
 
         } catch (err) {
@@ -76,27 +84,29 @@ const aulaController = {
 
     async registrarPresenca(req, res) {
         try {
-            const { id } = req.params.id;
+            const { id } = req.params;
             const { aluno_id, presente } = req.body;
 
             if (!aluno_id || presente === undefined) {
-                return res.status(400).json({ error: 'Aluno_id e presente são obrigatório' })
+                return res.status(400).json({ error: 'Aluno_id e presente são obrigatórios' })
             }
 
             const presenca = await presencasModel.registrarPresenca(id, aluno_id, presente);
-            res.json({ json });
+            
+            // Corrigido: Retornando a variável correta
+            res.json({ message: 'Presença registrada', presenca });
 
         } catch (err) {
-            console.error('Erro ao registra presença', err);
-            res.status(500).json({ error: 'Error ao registrar presença' });
+            console.error('Erro ao registrar presença', err);
+            res.status(500).json({ error: 'Erro ao registrar presença' });
         }
     },
 
     async buscarPresencasDaAula(req, res) {
         try {
-            const { id } = req.params;
+            const { id } = req.params; 
 
-            const presencas = await PresencaModel.buscarPresencasDaAula(id);
+            const presencas = await presencasModel.buscarPresencasDaAula(id);
             res.json(presencas);
 
         } catch (err) {

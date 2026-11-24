@@ -49,7 +49,7 @@ const AulaModel = {
         return result.rows[0];
     },
 
-    async BuscarAlunosPorAulas(aula_Id, tipo_faixa) {
+    async BuscarAlunosPorAulas(tipo_faixa) {
         let query = 'SELECT * FROM alunos'
         const values = []
 
