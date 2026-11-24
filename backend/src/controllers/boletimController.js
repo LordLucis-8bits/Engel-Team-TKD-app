@@ -1,4 +1,5 @@
 const boletimModel = require('../models/boletimModel');
+const alunoModel = require('../models/alunoModel');
 const { formatarBoletim } = require('../utils/formatters');
 
 const boletimController = {
@@ -57,6 +58,22 @@ const boletimController = {
             }
         }
         return res.json(boletim);
+    },
+
+    async index(req, res) {
+        const { aluno_id } = req.params;
+
+        const aluno = await alunoModel.buscarAlunoPorId(aluno_id, req.user.role === 'responsavel' ? req.user.id : null);
+
+        if (!aluno) {
+            return res.status(403).json({ error: 'Acesso negado. Este aluno não pertence a você.' });
+        }
+
+        const boletins = await boletimModel.listarPorAluno(aluno_id);
+        const boletinsFormatados = boletins.map(formatarBoletim);
+    
+        res.json(boletinsFormatados);
+
     }
 }
 

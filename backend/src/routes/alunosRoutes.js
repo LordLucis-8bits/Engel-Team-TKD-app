@@ -1,13 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const alunoController = require('../controllers/alunoController');
-const verificarToken = require('../middleware/auth');
-const upload = require('../middleware/upload');
+const auth = require('../middleware/auth');
+const upload = require('../config/uploadConfig'); 
 
-router.post('/', upload.single('foto'), alunoController.store);
-router.post('/login', alunoController.login);
-router.get('/perfil', verificarToken, alunoController.show);
-router.put('/:id', verificarToken, upload.single('foto'), alunoController.update);
-router.get('/', verificarToken, alunoController.index);
+//O pai logado vai usar essas rotas que só ve info do proprio filho
+router.use(auth);
+router.get('/:id', alunoController.show);
+router.put('/:id', upload.single('foto'), alunoController.update);
 
 module.exports = router;

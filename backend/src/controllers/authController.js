@@ -1,5 +1,4 @@
 const responsavelModel = require('../models/responsavelModel');
-const brycpt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { validateEmail } = require('../utils/formatters');
 require('dotenv').config();
