@@ -21,7 +21,7 @@ const competicaoController = {
                 pontos
             });
 
-            res.status(201).json({ message: 'Competição adicionado com sucesso', competicao })
+            res.status(201).json({ message: 'Competição adicionado com sucesso!', competicao })
 
         } catch (err) {
             console.log('Erro ao adicionar competicao', err);

@@ -1,13 +1,9 @@
 const alunoModel = require('../models/alunoModel');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
 const { formatarAluno } = require('../utils/formatters');
-const { validateEmail } = require('../utils/validators');
 
 require('dotenv').config();
 
 const adminController = {
-  
   async index(req, res) {
     try {
       const page = parseInt(req.query.page) || 1;
@@ -109,6 +105,7 @@ const adminController = {
         message: `Aluno ${aluno.nome} deletado com sucesso`,
         aluno: formatarAluno(alunoDeletado)
       });
+
     } catch (err) {
       console.error('Erro ao deletar aluno:', err);
       res.status(500).json({ 

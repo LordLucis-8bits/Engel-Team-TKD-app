@@ -3,9 +3,7 @@ const { formatarAluno } = require('../utils/formatters');
 require('dotenv').config();
 
 const responsavelController = {
-
   async buscarPorId(req, res) {
-    
     try {
       const { id } = req.user.id;
       const responsavel = await responsavelModel.buscarPorId(id);
