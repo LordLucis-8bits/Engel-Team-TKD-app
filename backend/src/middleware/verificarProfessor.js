@@ -4,3 +4,5 @@ const verificarProfessor = (req, res, next) => {
     }
     next();
 };
+
+module.exports = verificarProfessor;
