@@ -21,5 +21,7 @@ app.use('/boletins', boletimRoutes);
 app.use('/competicoes', competicaoRoutes);
 app.use('/reforcos', reforcoRoutes);
 
-const PORT = process.env.PORT || 3333;
-app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Servidor rodando na porta ${PORT}`);
+});
