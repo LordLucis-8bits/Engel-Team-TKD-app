@@ -8,3 +8,5 @@ router.use(auth);
 router.post('/', boletimController.store);
 router.get('/:id', boletimController.show);
 router.get('/aluno/:aluno_id', boletimController.index);
+
+module.exports = router;

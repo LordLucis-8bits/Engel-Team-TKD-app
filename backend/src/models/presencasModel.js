@@ -1,4 +1,4 @@
-const db = require('./db');
+const db = require('../config/db');
 
 const presencasModel = {
     async registrarPresenca(aula_Id, aluno_Id, presente) {
