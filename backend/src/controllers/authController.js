@@ -1,6 +1,6 @@
 const responsavelModel = require('../models/responsavelModel');
 const jwt = require('jsonwebtoken');
-const { validateEmail } = require('../utils/formatters');
+const bcrypt = require('bcryptjs');
 require('dotenv').config();
 
 const authController = {
@@ -11,12 +11,6 @@ const authController = {
       if (!email || !senha) {
         return res.status(400).json({ 
           error: 'Email e senha são obrigatórios' 
-        });
-      }
-
-      if (!validateEmail(email)) {
-        return res.status(400).json({ 
-          error: 'Email inválido' 
         });
       }
 
