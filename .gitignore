@@ -3,3 +3,4 @@ node_modules/
 DOCUMENTACAO_PROJETO.md
 *.log
 .hintrc
+docker-compose.yml
