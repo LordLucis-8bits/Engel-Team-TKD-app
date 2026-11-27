@@ -45,7 +45,7 @@ const authController = {
       });
 
     } catch (err) {
-      console.error('Erro no login do aluno:', err);
+      console.error('Erro no login do usuario:', err);
       return res.status(500).json({ 
         error: 'Erro ao fazer login',
         detalhes: process.env.NODE_ENV === 'development' ? err.message : undefined 
